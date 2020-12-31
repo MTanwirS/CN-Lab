@@ -5,21 +5,19 @@ serverport = 12000
 serverhost = "192.168.1.101"
 try:
     serverSocket = skt.socket(skt.AF_INET, skt.SOCK_DGRAM)
-except skt.error,msg:
-    print 'error creating socket'+ str(msg[0]) + msg[1]
-    sys.exit()
+except skt.error :
+    print ('error creating socket')
 
 try :
     serverSocket.bind((serverhost, serverport))
-except skt.error,msg:
-    print 'error binding'+ str(msg[0]) + msg[1]
+except skt.error:
+    print ('error binding')
 
 print ("The server is receiving")
 while 1:
-    message,clientAddress = serverSocket.recvfrom(1024)
-    reply = 'Received' + message
-    file=open(sentence,"r")
-    reply = reply + file.read(2048)
+    message , clientAddress = serverSocket.recvfrom(2048)
+    file=open(message ,"r")
+    reply = file.read(2048)
     serverSocket.sendto(bytes(reply,"utf-8"),clientAddress)
     print("sent to client",reply)
 file.close()
